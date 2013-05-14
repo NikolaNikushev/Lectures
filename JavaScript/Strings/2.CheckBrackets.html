@@ -1,0 +1,42 @@
+<!Doctype html>
+<html>
+<head>
+	<title>2.Check Brackets</title>
+</head>
+<body>
+
+	<label for="text">Write an expression with brackets, so the program can check if you placed your brackets correctly! </label>
+	<input id="text" type="text" />
+	<button id = 'check'>Click me!</button>
+	<script>
+		var button = document.getElementById('check');
+		button.addEventListener('click' ,function () {
+			printResult();
+		})
+
+		//checks if the left brackets are the starting ones and if the closing brackets are as equal to the opening brackets as numbers 
+	    function printResult() {
+	        var expr = document.getElementById('text').value
+	       	var bracketRightCount = 0;
+	       	var bracketLeftCount = 0
+		       for (var i = 0; i < expr.length; i++) {
+		       	if(expr[i] === '(' && bracketRightCount <= bracketLeftCount)
+		       		bracketLeftCount++;
+		       	if(expr[i] === ')')
+		       		bracketRightCount++;
+
+		       };
+		       alert("Check the console!")
+		       if( bracketLeftCount === bracketRightCount || bracketLeftCount < 0)
+		       		console.log("The brackets are in the correct order!")
+		       		
+		       	else
+		       		console.log("The brackets were not in the correct order!")
+		       		
+
+
+	    }
+	   </script>		
+
+</body>
+</html>

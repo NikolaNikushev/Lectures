@@ -1,0 +1,45 @@
+<!Doctype html>
+<html>
+<head>
+	<title>12. CreatingUR</title>
+</head>
+<body>
+<div data-type="template" id="list-item">
+        <strong>-{name}-</strong> <span>-{age}-</span>
+    </div>
+    <a href="#" onclick="onBtnClick()">Create!</a>
+    <div id="display"></div>
+    <script>
+
+    //when the <a> tag is clicked it creates a list of the people and their age.
+        function onBtnClick() {
+
+            var people = [
+                { name: "Peter", age: 14 },
+                { name: "Adasha", age: 5 },
+                { name: "Joro", age: 20 },
+            ];
+
+
+            var template = document.getElementById("list-item").innerHTML.valueOf();
+            var peopleList = generateList(people, template);
+            document.getElementById("display").innerHTML = peopleList;
+        }
+
+        //Generates the code for the list
+        function generateList(ppl, tmpl) {
+            var i;
+            var list = "<ul>";
+            for (i = 0; i < ppl.length; i++) {
+                list += "<li>";
+                list += tmpl.replace("-{name}-", ppl[i]["name"]);
+                list = list.replace("-{age}-", ppl[i]["age"]);
+                list += "</li>";
+            }
+            list += "</ul>";
+            return list;
+        }
+    </script>
+
+</body>
+</html>

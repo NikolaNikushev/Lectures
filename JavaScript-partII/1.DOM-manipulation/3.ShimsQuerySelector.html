@@ -1,0 +1,43 @@
+<!DOCTYPE html5>
+<html>
+	<head>
+        <title>3.ShimsQuerySelector </title>
+	</head>
+	<body>
+		<div id="wrapper">
+			<div class="text">Text</div>
+			<div id="moreText">2</div>
+			<div class="otherClass">more text</div>
+			<div>no text</div>
+			<div>lorem</div>
+		</div>
+		<script type="text/javascript">
+
+(function () {
+            if (!document.querySelector) {
+                querySelectorShiv();
+            }
+            var testDiv = document.querySelectorAll("div");
+		    testDiv.innerHTML = "selected";
+
+            function querySelectorShiv()
+            {
+                document.querySelector = function querySelector(selector) {
+                    switch (selector.charAt(0)) {
+                        case "#": return document.getElementById(selector.substring(1));
+                        case ".": return document.getElementsByClassName(selector.substring(1))[0];
+                        default: return document.getElementsByTagName('*')[0];
+                    }
+                }
+				document.querySelectorAll = function querySelectorAll(selector) {
+                    switch (selector.charAt(0)) {
+                        case "#": return document.getElementById(selector.substring(1));
+                        case ".": return document.getElementsByClassName(selector.substring(1));
+                        default: return document.getElementsByTagName('*');
+                    }
+                };
+            }
+        })();
+		</script>
+	</body>
+</html>

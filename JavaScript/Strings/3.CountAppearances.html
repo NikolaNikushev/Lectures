@@ -1,0 +1,48 @@
+<!Doctype html>
+<html>
+<head>
+	<title>3.CountAppearances</title>
+</head>
+<body>
+	<div><label for="text">Write your text! </label>
+	<input id="text" type="text" /></div>
+	<div><label for="text">Enter the word you wish to look for! </label>
+	<input id="sub" type="sub" /></div>
+	<div><button id = 'check'>Click me!</button></div>
+
+	<script>
+		var button = document.getElementById('check');
+		button.addEventListener('click' ,function () {
+			printApearrances();
+		})
+
+		//Gets the values of your text and the sub text that you will be looking for
+	    function printApearrances() {
+		    var text = document.getElementById('text').value;
+		    var sub =  document.getElementById('sub').value;
+		    var result = countAppearances(text, sub);
+		    console.log("Your text: \n" + text);
+		   console.log("The substring \""  + sub + "\" has " + result + " appearances!");
+
+
+	    }
+	    //Counts the appearances of your sub in the text
+	    function countAppearances(text, sub) {
+	        text = text.toLowerCase();
+	        sub = sub.toLowerCase();
+	        var indexOfSub = text.indexOf(sub);
+	        var count = 0;
+	        while (indexOfSub>-1) {
+	            count++;
+	            indexOfSub = text.indexOf(sub, indexOfSub + 1);
+	        }
+	        return count;
+	    }
+
+
+
+
+	</script>
+
+</body>
+</html>

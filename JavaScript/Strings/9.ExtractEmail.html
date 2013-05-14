@@ -1,0 +1,33 @@
+<!Doctype html>
+<html>
+<head>
+	<title>9.Extract Email</title>
+</head>
+<body>
+<script>
+
+    var initialText = "This is my mail: gacoBaco@mail.bg . This is my friend's email: benTrooper@somemail.com . This is my company mail livingStreet@gmail.com and this is a test mail : test3 4 @ abv.bg.";
+
+    alert("Check the console!");
+   var emails = findEmailAddresses(initialText);
+   console.log("This is the text:\n" + initialText)
+   console.log("These are the emails extracted from the text:")
+    for (var i = 0; i < emails.length; i++) {
+
+        console.log(emails[i]);
+
+    }
+    alert("Check the console!");
+
+    //Finds and matches the information in the text with the possible information for an email
+    function findEmailAddresses(initialText) {
+
+        var emailsArray = initialText.match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi);
+
+        return emailsArray;
+
+    }
+
+        </script> 
+</body>
+</html>

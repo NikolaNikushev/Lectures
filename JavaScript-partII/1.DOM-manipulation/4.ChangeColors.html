@@ -1,0 +1,24 @@
+<!DOCTYPE html5>
+<html>
+<head>
+	<title>4. ChangeColor</title>
+</head>
+<body>
+
+	<textarea id="TextArea">Just some content</textarea><br>
+	<input type="color" id="fontColor"/><br>
+	<input type="color" id="backgroundColor"/><br>
+	<button onclick="ChangeColors()"> Change colors!</button>
+
+	<script type="text/javascript">
+		function ChangeColors() {
+			
+			var fontColor = document.getElementById('fontColor').value;
+			document.getElementById('TextArea').style.color = fontColor;
+
+			var backgroundColor = document.getElementById('backgroundColor').value;
+			document.getElementById('TextArea').style.backgroundColor = backgroundColor;
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!Doctype html>
+<html>
+<head>
+	<title>8.ReplaceWithURL</title>
+</head>
+<body>
+	<script type="text/javascript">
+
+	    var text = "<p>Please visit <a href='http://academy.telerik. com'>our site</a> to choose a training course. Also visit <a href='www.devbg.org'>our forum</a> to discuss the courses.</p>"; 
+
+	     document.write("The old text:\n" + text);
+
+	    var index = text.indexOf("<a");
+	    while (index > -1) {
+	    	//Replaces the <a> tag with [URL]
+	        text = text.replace("<a", "[URL"); // finds the opening tag and replaces it with url
+	        text = text.replace('\'>', '\']'); // finds the end of the opening tag 
+	        text = text.replace("</a>", "[/URL]"); //finds the closing tag
+	        index = text.indexOf("<a",index); // gets the next index
+
+	    }
+
+
+		    document.write("The new text:\n" + text);
+
+	</script>
+</body>
+</html>

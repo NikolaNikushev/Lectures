@@ -1,0 +1,40 @@
+<!Doctype html>
+<html>
+<head>
+    <title>5.ReplaceText</title>
+</head>
+<body>
+    <button id = 'check'>Click me!</button>
+<script type="text/javascript">
+
+    
+var button = document.getElementById('check');
+button.addEventListener('click' ,function () {
+    printText();
+    alert("Check the console!");
+})
+
+//Prints the text
+function printText () {
+    var sometext = new String('You must be new here?  How does it feel being here for the first time? Do you     like    it here?  ');
+    console.log("The text: \n" + sometext);
+    console.log(replaceWhiteSpaces(sometext, '&nbsp;')); 
+}
+ 
+ //Replaces all the white spaces in the text 
+function replaceWhiteSpaces(text, newSymbol) {
+    var result = '';
+    for (var i=0;i<text.length;i++) {
+        if (text[i] == ' ') {
+            result += newSymbol;
+        }
+        else {
+            result += text[i];
+        }
+    }
+    return result;
+}
+
+</script>
+</body>
+</html>

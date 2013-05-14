@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>01.DomFunctions</title>
+</head>
+<body>
+	<nav id="main">
+		<ul id="#main-nav ul">
+			<li> nav item</li>
+		</ul>
+	</nav>
+	<div id="container"></div>
+<section id="Content">
+	<ul>
+		<li id = "fisrt">
+			first
+		</li>
+		<li id = "second">
+			second
+		</li>
+	</ul>
+<button onclick=domModule()></button>
+</section>
+</body>
+<script type="text/javascript">
+
+	 var domModule = function() {
+
+		var content = document.getElementById('Content');
+
+		function appendChild () {
+			var createElement = document.createElement(arguments[0]);
+			var selector = document.querySelector(arguments[1]);
+			createElement.innerHTML = "added " + arguments[0] + " with selector " +  arguments[0];
+
+			content.appendChild(createElement);
+		}
+
+		function removeChild () {
+			var selector = arguments[1];
+			var typeOfElement = document.querySelector(selector);
+			typeOfElement.parentNode.removeChild(typeOfElement);
+		}
+
+		function addHandler() {
+                attachEventHandler(arguments[0], arguments[1], arguments[2]);
+        }
+
+		function getElement(selector) {
+            return document.querySelector(selector);
+        }
+
+        function getElements(selector) {
+            return document.querySelectorAll(selector);
+        }
+
+        function attachEventHandler(elementSelector, eventName, handler) {
+            var element = document.querySelector(elementSelector);
+            if (element) {
+                
+                if (document.attachEvent) {
+                    element.attachEvent("on" + eventName, handler);
+                }
+                  
+                else if (document.addEventListener) {
+                    element.addEventListener(eventName, handler, false);
+                }
+                   
+                else {
+                    element[eventName] = eventHandler;
+                }
+            }
+        }
+
+        var fragmentsBuffer = {};
+		function appendToBuffer() {
+			var parentSelector = arguments[0];
+			var element = arguments[1];
+            if (!fragmentsBuffer[parentSelector]) {
+                fragmentsBuffer[parentSelector] = {
+                    fragment: document.createDocumentFragment(),
+                    length: 0
+                };
+            }
+            fragmentsBuffer[parentSelector].fragment.appendChild(element);
+            fragmentsBuffer[parentSelector].length += 1; 
+            if (fragmentsBuffer[parentSelector].length === 100) {
+
+                var parent = getElement(parentSelector);
+                parent.appendChild(fragmentsBuffer[parentSelector].fragment);
+                delete fragmentsBuffer[parentSelector];
+            }
+        }
+        
+
+        return {
+        	appendChild: appendChild,
+        	removeChild: removeChild,
+        	addHandler: addHandler,
+        	appendToBuffer: appendToBuffer,
+        	getElement: getElement,
+        	getElements: getElements
+        }
+	
+	};
+	var div = document.createElement("div");
+	//change the div
+	domModule().appendChild("div","#wrapper");
+	domModule().removeChild("ul","li:first-child"); 
+	domModule().addHandler("a.button", 'click',        function(){alert("Clicked")});
+	domModule().appendToBuffer("container", div.cloneNode(true));
+	var navItem = document.createElement("li")
+	domModule().appendToBuffer("#main-nav ul", navItem);
+
+</script>
+</html>

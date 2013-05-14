@@ -1,0 +1,30 @@
+<!DOCTYPE html5>
+<html>
+<head>
+	<title>2.TODO List</title>
+	<style type="text/css">
+		ul{
+			list-style-type: none;
+			position: absolute;
+			left: 180;
+			top: 0;
+		}
+		#TODOContent{
+			width:180;
+		}
+	</style>
+</head>
+<body>
+	<form id="todoList">
+		<input type="text" id="itemToAdd" placeholder = "Your new todo"/>
+		<ul>
+			<li><button id="addElement" onclick="AddNewElement(event)"> Add new item </button></li>
+			<li><button id="removeElement" onclick="RemoveSelectedElements(event)"> Remove selected items</button></li>
+			<li><button id="hide" onclick="HideElements(event)">Hide selected items</button></li>
+			<li><button id="show" onclick="ShowHidden(event)">Show hidden items</button></li>
+		</ul>
+	</form>
+	<div id="TODOContent"></div>
+<script type="text/javascript" src="TODOList.js"></script>
+</body>
+</html>

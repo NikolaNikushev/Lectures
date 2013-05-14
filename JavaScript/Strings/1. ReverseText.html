@@ -1,0 +1,49 @@
+<!Doctype html>
+<html>
+<head>
+	<title>1. ReverseText</title>
+</head>
+<body>							  
+
+	<label for="text">Write a text to reverse it! </label>
+	<input id="text" type="text" />
+	<button id = 'check'>Click me!</button>
+
+	<script>
+		var button = document.getElementById('check');
+		button.addEventListener('click' ,function () {
+			reverseText();
+		})
+
+		//Gets the value from the input and reverses the text using the string builder
+	    function reverseText() {
+		    var str = document.getElementById('text').value;
+		    var stringBuilder = buildStringBuilder();
+		    for (var i = str.length; i >= 0; i--) {
+		        stringBuilder.append(str[i]);
+		    }
+		    alert("Check the console!")
+		    console.log("Reversed:\n" + stringBuilder.toString());
+
+
+		}
+		function buildStringBuilder() {
+		    return {
+		        strs: [],
+		        len: 0,
+		        append: function (str) {
+		            this.strs[this.len++] = str;
+		            return this;
+		        },
+		        toString: function () {
+		            return this.strs.join("");
+		        }
+		    };
+		}
+
+
+
+
+	</script>
+</body>
+</html>

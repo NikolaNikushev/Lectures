@@ -1,0 +1,33 @@
+<!Doctype html>
+<html>
+<head>
+	<title>6.ReplaceHtml tags</title>
+</head>
+<body>
+	<button id="check">Click me!</button>
+<script>
+
+	var button = document.getElementById('check');
+	button.addEventListener('click', function () {
+		printText();
+		alert("Check the console!");
+	})
+
+	//Using a redex I find the tags and replace them with nothing. 
+	function printText () {
+
+	var text = "<html><head><title>Sample site" +
+            "</title></head><body><div>text<div>more text</div>and more...</div>in body</body></html>";
+
+    console.log("Before change:\n" + text);
+
+    var regex = /(<([^>]+)>)/ig; 
+
+    var result = text.replace(regex, "");
+
+    console.log("After change: \n" +result);
+}
+	
+</script>
+</body>
+</html>

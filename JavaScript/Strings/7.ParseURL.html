@@ -1,0 +1,34 @@
+<!Doctype html>
+<html>
+<head>
+	<title>7. ParseURL</title>
+</head>
+<body>
+	<button id='check'>Click me!</button>
+	<script type="text/javascript">
+
+	var button = document.getElementById('check');
+	button.addEventListener('click', function () {
+
+        alert("Check the console!");
+        //Gets the url that you supply
+		var input = prompt("enter an URL,", "http://www.yourURL.com/resource")
+        var protocol = "";
+        var server = "";
+        var resource = "";
+
+        //Finds the text for the protocol, server and resource
+        protocol = input.substring(0,input.indexOf("://"));
+
+        server = input.substring(input.indexOf(":") + 3, input.indexOf("/", input.indexOf(":") + 3));
+
+       resource = input.substring(input.indexOf("/", input.indexOf(":") + 3) + 1)
+       
+        console.log("[protocol] = \"" + protocol+ "\"");
+        console.log("[server]   = \"" + server+ "\"" );
+        console.log("[resource] = \"" + resource+ "\"" );
+	})
+	
+    </script>
+</body>
+</html>

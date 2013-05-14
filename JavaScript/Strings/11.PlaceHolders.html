@@ -1,0 +1,22 @@
+<!Doctype html>
+<html>
+<head>
+	<title>11. Place holders</title>
+</head>
+<body>
+	<script type="text/javascript">
+
+	
+	function format(str) {
+	    var selfArguments = arguments;
+
+	    return str.replace(/{(\d+)}/g, function(match, p1) {
+	        return selfArguments[+p1 + 1];
+	    })
+	}
+	document.write("<p>The text below are place holders, each devided by a coma </p>");
+
+	document.write(format('{0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11}, {12}, {13}, {14}, {15}, {16}, {17}, {18}, {19}, !', 'Hello', 'World', 5, 5.5, "thing", 3, "who", 3, 6, 102312, 33, 45, "this is an integer", 4, 5, 6,3 ,7 ,8 ,9));
+	</script>
+</body>
+</html>

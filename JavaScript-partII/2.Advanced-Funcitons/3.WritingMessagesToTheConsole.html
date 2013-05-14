@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<head>
+    <title>03.WritingMessagesToTheConsole</title>
+    <style>
+    body{
+        background:black;
+    }
+       #container{
+        background: gray;
+        width: 300px;
+        color: white;
+       }
+    </style>
+</head>
+<body>
+<div id="container">
+    <label for="commandText">Write your arguments:</label>
+    <p id='inputs'><input  type="text" id="commandText"/></p>
+   
+    <button id ="writeLine" onclick="WriteLine()">writeLine</button>
+    <button id ="writeWarning" onclick="WriteWarning()">writeWarning</button>
+    <button id ="writeError" onclick="WriteError()">writeError</button><br />
+    <div id="specialConsole"></div>
+</div> 
+    
+    <script>
+    function WriteLine() {
+        specialConsole.writeLine(GetText());
+    }
+
+    function WriteWarning () { 
+        specialConsole.writeWarning(GetText());
+    }
+
+    function WriteError () {
+
+        specialConsole.writeError(GetText());
+    }
+
+    function GetText() {
+        var text = document.getElementById('commandText').value;
+        text = format(text).split(',');
+        return text[0];  
+    }
+
+    function format(str) {
+         var selfArguments = str.split(',');
+
+        return str.replace(/{(\d+)}/g, function(match, p1) {
+            return selfArguments[+p1 + 1];
+            })
+        }
+
+    var specialConsole = (function() {
+        
+    (function () {
+        var consoleConn = document.createElement('div');
+
+        consoleConn.id = 'specialConsole';
+        consoleConn.style.backgroundColor = '#000';
+        consoleConn.style.color = '#fff';
+        consoleConn.style.border = '1px solid #888';
+        consoleConn.style.padding = '20px';
+
+        document.body.appendChild(consoleConn);
+    })();
+
+    var consoles = document.getElementById('specialConsole');
+
+    function getMessage(args) {
+        var msg = args[0];
+        var i, numStr;
+
+        for(i = 1; i < args.length; i++) {
+            numStr = '{' + parseInt(i-1) + '}';
+            msg = msg.replace(numStr, args[i]);
+        }
+
+        return msg.toString();
+    }
+
+    function printToConsole(msg, fontColor, fontWeight) {
+
+        var p = document.createElement('p');
+        var text = document.createTextNode(msg);
+
+        p.appendChild(text);
+        p.style.color = fontColor;
+        p.style.fontWeight = fontWeight;
+
+        consoles.appendChild(p);
+    }
+
+    function writeLine() {
+        var msg = getMessage(arguments);
+       printToConsole(msg, "white", "normal")
+    }
+
+    function writeError() {
+        var msg = getMessage(arguments);
+         printToConsole(msg, "red", "bold")
+    }
+
+    function writeWarning() {
+        var msg = getMessage(arguments);
+       printToConsole(msg,"yellow", "bold")
+    }
+
+    return {
+        writeLine: writeLine,
+        writeError: writeError,
+        writeWarning: writeWarning
+    };
+
+})();
+
+    specialConsole.writeLine("Message: hello");
+    specialConsole.writeLine("Message: {0}", "hello");
+
+    specialConsole.writeError("Error: {0}", "Something happened");
+
+    specialConsole.writeWarning("Warning: {0}", "A warning");
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<head>
+    <title>02.Module with moving divs</title>
+    <style>
+        body div {
+            width: 50px;
+            height: 50px;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>  
+    <button id ="create-rect">Create Rect</button>
+     <button id ="create-ellipse">Create Eliipese</button>
+    
+    <script>
+        var movingShapes = function () {
+            window.onload = startMoving;
+
+            var timeInterval = 30;
+
+            var ellipseX = 200 | 0;
+            var ellipseY = 200 | 0;
+            var radius = 200 | 0;
+            var ellipseDivs = document.getElementsByClassName("ellipse");
+
+            var rectangleX = 0;
+            var rectangleY = 150
+            var endX = 300;
+            var endY = 50;
+
+            var rectangleSpeed = 5;
+            var rectangleDivs = document.getElementsByClassName("rectangle");
+
+            //initialize movement onload
+            function startMoving() {
+                attachEventHandler("#create-ellipse", "click", addNewEllipseDiv);
+                attachEventHandler("#create-rect", "click", addNewRectangleDiv);
+                interval = setInterval(add("ellipse"), timeInterval);
+                interval = setInterval(add("rectangle"), timeInterval);
+            }
+
+            function attachEventHandler(elementSelector, eventName, handler) {
+                var element = document.querySelector(elementSelector);
+                if (element) {
+                    
+                    if (document.attachEvent) {
+                        element.attachEvent("on" + eventName, handler);
+                    }
+                      
+                    else if (document.addEventListener) {
+                        element.addEventListener(eventName, handler, false);
+                    }
+                       
+                    else {
+                        element[eventName] = eventHandler;
+                    }
+                }
+            }
+
+
+            function add(shape) {
+                function moveEllipse() {
+                    var len = ellipseDivs.length;
+
+                    for (var i = 0; i < len; i++) {
+                        var div = ellipseDivs[i];
+                        var angleInRadians = (div.getAttribute("angleAttr")) * (Math.PI / 180);
+                        var left = radius * Math.cos(angleInRadians) + ellipseX;
+                        var top = radius * Math.sin(angleInRadians) + ellipseY;
+
+                        div.style.left = left + "px";
+                        div.style.top = top + "px";
+                        div.attributes.angleAttr.nodeValue++;
+                    }
+                }
+
+                function moveRectangle() {
+                    var len = rectangleDivs.length;
+                    for (var i = 0; i < len; i++) {
+                        var x;
+                        var y;
+                        var div = rectangleDivs[i];
+                        var direction = div.getAttribute("direction");
+
+                        if (direction == "right") {
+                            y = rectangleY;
+                            div.style.top = y + "px";
+                            div.style.left = parseInt(div.style.left) + rectangleSpeed + "px";
+
+                            if (parseInt(div.style.left) == endX) {
+                                div.attributes.direction.nodeValue = "down";
+                            }
+
+                        }
+                        else if (direction == "down") {
+                            x = endX;
+                            div.style.top = parseInt(div.style.top) - rectangleSpeed + "px";
+                            div.style.left = x + "px";
+
+                            if (parseInt(div.style.top) == endY) {
+                                div.attributes.direction.nodeValue = "left";
+                            }
+
+                        }
+                        else if (direction == "left") {
+                            y = endY;
+                            div.style.top = y + "px";
+                            div.style.left = parseInt(div.style.left) - rectangleSpeed + "px";
+
+                            if (parseInt(div.style.left) == rectangleX) {
+                                div.attributes.direction.nodeValue = "up";
+                            }
+
+                        }
+                        else if (direction == "up") {
+                            x = rectangleX;
+
+                            div.style.top = parseInt(div.style.top) + rectangleSpeed + "px";
+                            div.style.left = x + "px";
+
+                            if (parseInt(div.style.top) == rectangleY) {
+                                div.attributes.direction.nodeValue = "right";
+                            }
+
+                        }
+                    }
+                }
+
+                if (shape == "ellipse") {
+                    return moveEllipse;
+                }
+                else {
+                    return moveRectangle;
+                }
+            }
+
+            function addNewEllipseDiv() {
+
+                var ellipseDiv = document.createElement("div");
+                ellipseDiv.setAttribute("class", "ellipse");
+                ellipseDiv.setAttribute("angleAttr", "0");
+
+                var angleInRadians = (ellipseDiv.getAttribute("angleAttr")) * (Math.PI / 180);
+                var left = radius * Math.cos(angleInRadians) + ellipseX;
+                var top = radius * Math.sin(angleInRadians) + ellipseY;
+                ellipseDiv.style.left = left + "px";
+                ellipseDiv.style.top = top + "px";
+
+                ellipseDiv.style.backgroundColor = generateRandomColor();
+                ellipseDiv.style.color = generateRandomColor();
+
+                document.body.appendChild(ellipseDiv);
+            }
+
+            function addNewRectangleDiv() {
+                var rectangleDiv = document.createElement("div");
+                rectangleDiv.setAttribute("class", "rectangle");
+                rectangleDiv.setAttribute("direction", "right");
+                rectangleDiv.style.top = rectangleY + "px";
+                rectangleDiv.style.left = rectangleX + "px";
+                rectangleDiv.style.backgroundColor = generateRandomColor();
+                rectangleDiv.style.color = generateRandomColor();
+
+                document.body.appendChild(rectangleDiv);
+            }
+
+            function generateRandomColor() {
+                var red = (Math.random() * 256) | 0;
+                var green = (Math.random() * 256) | 0;
+                var blue = (Math.random() * 256) | 0;
+
+                return "rgb(" + red + "," + green + "," + blue + ")"
+            }
+
+            return {
+                add: add                
+            }
+        }();
+
+        movingShapes.add("ellipse");
+        movingShapes.add("rectangle");
+    </script>
+
+</body>
+</html>

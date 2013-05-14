@@ -1,0 +1,60 @@
+<!Doctype html>
+<html>
+<head>
+	<title>10.Extract polindroms</title>
+</head>
+<body>
+	<button id='check'>Click me!</button>
+
+    <script type="text/javascript">
+
+    var button = document.getElementById('check');
+    button.addEventListener('click',function () {
+    	PrintText();
+        alert("Check the console!");
+    })
+
+    //An array of strings to check if they are palindroms
+    function PrintText () {
+    	var text = [];
+    	text[0] = "abba";
+    	text[1] = "lamal";
+    	text[2] = "stoop me";
+    	text[3] = "abba";
+    	text[4] = "lamal";
+    	text[5] = "lamalal";
+
+        console.log("Elements:\n" + text);
+        console.log("From the array of elements the polindroms were: ");
+
+        //Calls the palindrom check for each element in the array
+    	for (var i = 0; i < text.length; i++) 
+    		extractPalindromes(text[i]);
+
+    } 
+        //splits the text, checks if the word(s) are polindroms and prints the word if it is
+    	function extractPalindromes(text) {
+
+       		var words = text.split(" ");
+            var isPalindrome = false;
+            var word = "";
+            for (var index = 0; index < words.length; index++) {
+                word = words[index];
+                for (var i = 0; i < parseInt(word.length / 2); i++) {
+                    if (word[i] == word[word.length - 1 - i]) {
+                        isPalindrome = true;
+                    }
+                    else {
+                        isPalindrome = false;
+                    }
+                }
+                if (isPalindrome && word.length > 1) {
+                   console.log(word);
+                }
+            }
+        }
+
+
+    </script>
+</body>
+</html>
